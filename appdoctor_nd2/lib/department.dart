@@ -20,6 +20,9 @@ class departmentdetail extends State<department> {
            color: Colors.green.shade100,
            borderRadius: BorderRadius.circular(10),
          ),
+         child: Text(
+         "hl"
+         ),
        ))
      ],
     )));
