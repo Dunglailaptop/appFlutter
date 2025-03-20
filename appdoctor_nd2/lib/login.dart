@@ -1,3 +1,4 @@
+import 'package:appdoctor_nd2/Navigation_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:appdoctor_nd2/home.dart';
 
@@ -9,27 +10,25 @@ class SignInPage2 extends StatelessWidget {
     final bool isSmallScreen = MediaQuery.of(context).size.width < 600;
 
     return Scaffold(
-        body: Center(
-            child: isSmallScreen
+      body: Center(
+        child:
+            isSmallScreen
                 ? Column(
-              mainAxisSize: MainAxisSize.min,
-              children: const [
-                _Logo(),
-                _FormContent(),
-              ],
-            )
+                  mainAxisSize: MainAxisSize.min,
+                  children: const [_Logo(), _FormContent()],
+                )
                 : Container(
-              padding: const EdgeInsets.all(32.0),
-              constraints: const BoxConstraints(maxWidth: 800),
-              child: Row(
-                children: const [
-                  Expanded(child: _Logo()),
-                  Expanded(
-                    child: Center(child: _FormContent()),
+                  padding: const EdgeInsets.all(32.0),
+                  constraints: const BoxConstraints(maxWidth: 800),
+                  child: Row(
+                    children: const [
+                      Expanded(child: _Logo()),
+                      Expanded(child: Center(child: _FormContent())),
+                    ],
                   ),
-                ],
-              ),
-            )));
+                ),
+      ),
+    );
   }
 }
 
@@ -49,14 +48,14 @@ class _Logo extends StatelessWidget {
           child: Text(
             "KHÁM BỆNH NỘI TRÚ",
             textAlign: TextAlign.center,
-            style: isSmallScreen
-                ? Theme.of(context).textTheme.headlineLarge
-                : Theme.of(context)
-                .textTheme
-                .headlineLarge
-                ?.copyWith(color: Colors.black),
+            style:
+                isSmallScreen
+                    ? Theme.of(context).textTheme.headlineLarge
+                    : Theme.of(
+                      context,
+                    ).textTheme.headlineLarge?.copyWith(color: Colors.black),
           ),
-        )
+        ),
       ],
     );
   }
@@ -117,20 +116,23 @@ class __FormContentState extends State<_FormContent> {
               },
               obscureText: !_isPasswordVisible,
               decoration: InputDecoration(
-                  labelText: 'Mật khẩu',
-                  hintText: 'Nhập mật khẩu của bạn',
-                  prefixIcon: const Icon(Icons.lock_outline_rounded),
-                  border: const OutlineInputBorder(),
-                  suffixIcon: IconButton(
-                    icon: Icon(_isPasswordVisible
+                labelText: 'Mật khẩu',
+                hintText: 'Nhập mật khẩu của bạn',
+                prefixIcon: const Icon(Icons.lock_outline_rounded),
+                border: const OutlineInputBorder(),
+                suffixIcon: IconButton(
+                  icon: Icon(
+                    _isPasswordVisible
                         ? Icons.visibility_off
-                        : Icons.visibility),
-                    onPressed: () {
-                      setState(() {
-                        _isPasswordVisible = !_isPasswordVisible;
-                      });
-                    },
-                  )),
+                        : Icons.visibility,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      _isPasswordVisible = !_isPasswordVisible;
+                    });
+                  },
+                ),
+              ),
             ),
             _gap(),
             CheckboxListTile(
@@ -152,21 +154,26 @@ class __FormContentState extends State<_FormContent> {
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(4)),
-                  backgroundColor: Colors.green
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                  backgroundColor: Colors.green,
                 ),
                 child: const Padding(
                   padding: EdgeInsets.all(10.0),
                   child: Text(
                     "ĐĂNG NHẬP",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold,color: Colors.white),
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
                 onPressed: () {
                   if (_formKey.currentState?.validate() ?? false) {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => Home()),
+                      MaterialPageRoute(builder: (context) => NavigationMenu()),
                     );
                   }
                 },

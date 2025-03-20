@@ -27,18 +27,24 @@ class MyHomePageState extends State<Home> {
 
     // Set the state with the loaded data
     setState(() {
-      _allUsers = jsonResponse.map((item) {
-        return {"id": item["id"], "title": item["title"]};
-      }).toList();
+      _allUsers =
+          jsonResponse.map((item) {
+            return {"id": item["id"], "title": item["title"]};
+          }).toList();
       _filteredUsers = _allUsers;
     });
   }
 
   void _filterUsers(String query) {
     setState(() {
-      _filteredUsers = _allUsers
-          .where((user) => user["title"].toString().toLowerCase().contains(query.toLowerCase()))
-          .toList();
+      _filteredUsers =
+          _allUsers
+              .where(
+                (user) => user["title"].toString().toLowerCase().contains(
+                  query.toLowerCase(),
+                ),
+              )
+              .toList();
     });
   }
 
@@ -59,50 +65,63 @@ class MyHomePageState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(child: Scaffold(
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: TextField(
-              controller: _searchController,
-              decoration: InputDecoration(
-                labelText: 'Tìm kiếm...',
-                prefixIcon: Icon(Icons.search),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-              ),
-            ),
-          ),
-          Expanded(
-            child: ListView.builder(
-              padding: EdgeInsets.all(10.0),
-              itemCount: _filteredUsers.length,
-              itemBuilder: (context, index) => Card(
-                key: ValueKey(_filteredUsers[index]["id"].toString()),
-                color: Colors.green,
-                elevation: 1,
-                margin: const EdgeInsets.symmetric(vertical: 10),
-                child: ListTile(
-                  leading: Icon(Icons.local_hospital, color: Colors.white),
-                  title: Text(_filteredUsers[index]["title"].toString()),
-                  titleTextStyle: const TextStyle(
-                    fontSize: 20,
-                    color: Colors.white,
+    return SafeArea(
+      child: Scaffold(
+        body: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: TextField(
+                controller: _searchController,
+                decoration: InputDecoration(
+                  labelText: 'Tìm kiếm...',
+                  prefixIcon: Icon(Icons.search),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
                   ),
-                  onTap: (){
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => department()),
-                    );
-                  },
                 ),
               ),
             ),
-          ),
-        ],
+            Expanded(
+              child: ListView.builder(
+                padding: EdgeInsets.all(10.0),
+                itemCount: _filteredUsers.length,
+                itemBuilder:
+                    (context, index) => Card(
+                      key: ValueKey(_filteredUsers[index]["id"].toString()),
+                      color: Colors.green,
+                      elevation: 1,
+                      margin: const EdgeInsets.symmetric(vertical: 10),
+                      child: ListTile(
+                        leading: Icon(
+                          Icons.local_hospital,
+                          color: Colors.white,
+                        ),
+                        title: Text(_filteredUsers[index]["title"].toString()),
+                        titleTextStyle: const TextStyle(
+                          fontSize: 20,
+                          color: Colors.white,
+                        ),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder:
+                                  (context) => department(
+                                    message:
+                                        _filteredUsers[index]["title"]
+                                            .toString(),
+                                  ),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+              ),
+            ),
+          ],
+        ),
       ),
-    ));
+    );
   }
 }
